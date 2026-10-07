@@ -1,1 +1,238 @@
-hh
+package sort;
+
+import java.util.Arrays;
+
+
+public class Sort {
+
+   
+    public static void main(String[] args) {
+      
+   
+    System.out.println("===== INSERTION SORT =====");
+
+    // Best Case
+    Character[] insertionBest = {'A', 'B', 'C', 'D', 'E'};
+
+    // Average Case
+    Character[] insertionAverage = {'C', 'A', 'E', 'B', 'D'};
+
+    // Worst Case
+    Character[] insertionWorst = {'E', 'D', 'C', 'B', 'A'};
+
+    System.out.println("Best Case:   " + Arrays.toString(insertionBest));
+    InsertionSort(insertionBest);
+    System.out.println("After:   " + Arrays.toString(insertionBest));
+
+    System.out.println("Average Case:   " + Arrays.toString(insertionAverage));
+    InsertionSort(insertionAverage);
+    System.out.println("After:        " + Arrays.toString(insertionAverage));
+
+    System.out.println("Worst Case:  " + Arrays.toString(insertionWorst));
+    InsertionSort(insertionWorst);
+    System.out.println("After:     " + Arrays.toString(insertionWorst));
+
+     System.out.println();
+   
+    System.out.println("===== MERGE SORT =====");
+
+    // Best Case
+    Integer[] mergeBest = {1, 2, 3, 4, 5};
+
+    // Average Case
+    Integer[] mergeAverage = {3, 1, 5, 2, 4};
+
+    // Worst Case
+    Integer[] mergeWorst = {5, 4, 3, 2, 1};
+
+    System.out.println("Best Case:  " + Arrays.toString(mergeBest));
+    MergeSort(mergeBest);
+    System.out.println("After:   " + Arrays.toString(mergeBest));
+
+    System.out.println("Average Case: " + Arrays.toString(mergeAverage));
+    MergeSort(mergeAverage);
+    System.out.println("After:     " + Arrays.toString(mergeAverage));
+
+    System.out.println("Worst Case:   " + Arrays.toString(mergeWorst));
+    MergeSort(mergeWorst);
+    System.out.println("After:     " + Arrays.toString(mergeWorst));
+
+   System.out.println();
+    
+    System.out.println("===== SELECTION SORT =====");
+
+    // Best Case
+    Integer[] selectionBest = {1, 2, 3, 4, 5};
+
+    // Average Case
+    Integer[] selectionAverage = {3, 1, 5, 2, 4};
+
+    // Worst Case
+    Integer[] selectionWorst = {5, 4, 3, 2, 1};
+
+    System.out.println("Best Case:    " + Arrays.toString(selectionBest));
+    SelectionSort(selectionBest);
+    System.out.println("After:        " + Arrays.toString(selectionBest));
+
+    System.out.println("Average Case: " + Arrays.toString(selectionAverage));
+    SelectionSort(selectionAverage);
+    System.out.println("After:        " + Arrays.toString(selectionAverage));
+
+    System.out.println("Worst Case:   " + Arrays.toString(selectionWorst));
+    SelectionSort(selectionWorst);
+    System.out.println("After:        " + Arrays.toString(selectionWorst));
+
+
+     System.out.println();
+    System.out.println("===== QUICK SORT =====");
+
+    // Best Case
+    String[] quickBest = {"Apple", "Banana", "Cat", "Dog", "Fish"};
+
+    // Average Case
+    String[] quickAverage = {"Cat", "Apple", "Fish", "Banana", "Dog"};
+
+    // Worst Case
+    String[] quickWorst = {"Apple", "Banana", "Cat", "Dog", "Fish"};
+
+    System.out.println("Best Case:    " + Arrays.toString(quickBest));
+    QuickSort(quickBest, 0, quickBest.length - 1);
+    System.out.println("After:        " + Arrays.toString(quickBest));
+
+    System.out.println("Average Case: " + Arrays.toString(quickAverage));
+    QuickSort(quickAverage, 0, quickAverage.length - 1);
+    System.out.println("After:        " + Arrays.toString(quickAverage));
+
+    System.out.println("Worst Case:   " + Arrays.toString(quickWorst));
+    QuickSort(quickWorst, 0, quickWorst.length - 1);
+    System.out.println("After:        " + Arrays.toString(quickWorst));
+}
+    
+    
+
+    
+    public static <E extends Comparable<E>> void SelectionSort(E[] A){
+        for(int i=0;i<A.length;i++){
+            int min=i;
+            for(int j=1;j<A.length;j++){
+                if(A[j].compareTo(A[min])<0)
+                    min=j;
+            }
+            E temp=A[i];
+            A[i]=A[min];
+            A[min]=temp;
+            
+        }
+    }
+    
+    public static <E extends Comparable<E>> void InsertionSort(E[] B){
+        for(int i=1;i<B.length;i++){
+            for(int j=i;j>0;j--){
+                if(B[j].compareTo(B[j-1])<0){
+                    E temp=B[j];
+                    B[j]=B[j-1];
+                    B[j-1]=temp;
+                }
+                
+            }
+        }
+    }
+    
+    public static <E extends Comparable<E>> void MergeSort(E[] C){
+        if(C.length==1)
+            return;
+        E[] c1=Arrays.copyOfRange(C, 0, C.length/2);
+        E[] c2=Arrays.copyOfRange(C,C.length/2, C.length);
+        
+        MergeSort(c1);
+        MergeSort(c2);
+        
+        Merge(C,c1, c2);
+        
+        
+    }
+    
+  public static <E extends Comparable<E>> void Merge(
+        E[] A, E[] left, E[] right) {       // Merge left and right into A
+
+    int i = 0;                              
+    int j = 0;                             
+    int k = 0;                           
+
+    while (i < left.length && j < right.length) { 
+
+        if (left[i].compareTo(right[j]) < 0) {    
+
+            A[k] = left[i];                        
+            i++;                                   
+
+        } else {
+
+            A[k] = right[j];                      
+            j++;                                   
+        }
+
+        k++;                                      
+    }
+
+    while (i < left.length) {                      
+
+        A[k] = left[i];                             
+        i++;                                       
+        k++;                                      
+    }
+
+    while (j < right.length) {                  
+
+        A[k] = right[j];                           
+        j++;                                       
+        k++;                                     
+    }
+}
+  
+  
+  public static <E extends Comparable<E>> void QuickSort(
+        E[] D, int start, int end) {
+
+    if (start >= end)
+        return;
+
+    int pivot = end;
+    int left = start;
+    int right = end - 1;
+
+    while (left <= right) {
+
+        while (left <= right &&
+               D[left].compareTo(D[pivot]) < 0) {
+            left++;
+        }
+
+        while (left <= right &&
+               D[right].compareTo(D[pivot]) > 0) {
+            right--;
+        }
+
+        if (left <= right) {
+
+            E temp = D[left];
+            D[left] = D[right];
+            D[right] = temp;
+
+            left++;
+            right--;
+        }
+    }
+
+    // Swap pivot with left
+    E temp = D[left];
+    D[left] = D[pivot];
+    D[pivot] = temp;
+
+    // Recursion
+    QuickSort(D, start, left - 1);
+    QuickSort(D, left + 1, end);
+}
+ 
+}
+
